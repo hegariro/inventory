@@ -32,9 +32,7 @@ const signUp = (req, res) => {
 
 const signIn = (req, res) => {
     const { nickname, password } = req.body;
-    UserModel.findOne({
-        where: { nickname }
-    }).then(user => {
+    UserModel.findOne({ where: { nickname } }).then(user => {
         if (!user)
             return res.status(401).json({ message: `User does not exists` });
 

@@ -59,8 +59,5 @@ const deleteProduct = async (req, res) => {
     return res.status(200).json({ message: `${tx} product was deleted. ID ${id}` });
 };
 
-const productCtrl = {
-    listAllProducts, listProductByID, createProduct,
-    updateProduct, deleteProduct,
-};
+const productCtrl = { listAllProducts, listProductByID, createProduct, updateProduct, deleteProduct };
 module.exports = productCtrl;
