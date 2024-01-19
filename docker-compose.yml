@@ -34,7 +34,7 @@ services:
       DB_DSN: postgres://toor:Qb8B[uE{c!Nn]}qFU,TV)'ZGrR52dK@database:5432/inventory
       JWT_SECRET: 5AC04E28682AE61CC6A979CAB4D6CEF96933B26DB38FABB335A9FC88FB0623CE1637F7936B4C9C32392E1ED2157D1565935D5D871418E0DB6893A90706FD8269
     volumes:
-      - ./data-storage:/app/data-storage
+      - ./backend/data-storage:/app/data-storage
 
   frontend:
     build: 
@@ -50,7 +50,7 @@ services:
       - backend
     environment:
       PORT: 9000
-      BACKEND_URL_BASE: http://backend:3000/api/V1
+      VITE_BACKEND_URL_BASE: http://backend:3000/api/V1
 
 networks:
   app-network:

@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build --mode production",
-    "preview": "vite preview --port 9000"
+    "preview": "vite preview --port 9000 --host"
   },
   "dependencies": {
     "pinia": "^2.1.7",
