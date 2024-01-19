@@ -1,4 +1,4 @@
-// TODO falta crear e importar los componentes Layout, Login y Register
+import { Layout, Login, Register } from "@/views/account";
 
 export default {
     path: "/account",
