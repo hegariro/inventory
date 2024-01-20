@@ -1,8 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-import { useAuthStore } from '@/stores/auth.store';
-
-const authStore = useAuthStore();
 </script>
 
 <template>
@@ -11,7 +8,6 @@ const authStore = useAuthStore();
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <!-- <RouterLink to="/about">About</RouterLink> -->
       </nav>
     </div>
   </header>
@@ -21,8 +17,10 @@ const authStore = useAuthStore();
 
 <style scoped>
 header {
+  display: flex;
   line-height: 1.5;
   max-height: 100vh;
+  flex-direction: column;
 }
 
 .logo {

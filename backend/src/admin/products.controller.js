@@ -2,12 +2,12 @@ const ProductModel = require("../data-presist/product.model");
 const uuid = require('uuid');
 
 const listAllProducts = async (req, res) => {
-    const { dataValues } = await ProductModel.findAll();
-    if (!dataValues) return res.status(400).json({
+    const products = await ProductModel.findAll();
+    if (!products) return res.status(400).json({
         message: "there are not products registered"
     });
 
-    return res.status(200).json({ products: dataValues });
+    return res.status(200).json({ products });
 };
 
 const listProductByID = async (req, res) => {

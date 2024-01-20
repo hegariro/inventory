@@ -34,8 +34,11 @@ export const useAuthStore = defineStore({
         },
         async register(user) {
             // The User must have inside the attribs firstname, lastname, nickname, password
+            const { firstname, lastname, username: nickname, password } = user;
             try {
-                const { data } = await fetchWrapper.post(`${baseUrlAuth}/signup`, user);
+                const { data } = await fetchWrapper.post(`${baseUrlAuth}/signup`,
+                    { firstname, lastname, nickname, password }
+                );
                 this.data = data;
 
                 localStorage.setItem('userData', JSON.stringify(data));

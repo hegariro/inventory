@@ -36,21 +36,21 @@ services:
     volumes:
       - ./backend/data-storage:/app/data-storage
 
-  frontend:
-    build: 
-      context: ./frontend
-    container_name: brm-frontend
-    depends_on:
-      - backend
-    ports:
-      - "9000:9000"
-    networks:
-      - app-network
-    links:
-      - backend
-    environment:
-      PORT: 9000
-      VITE_BACKEND_URL_BASE: http://localhost:3000/api/V1
+  # frontend:
+  #   build: 
+  #     context: ./frontend
+  #   container_name: brm-frontend
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - "9000:9000"
+  #   networks:
+  #     - app-network
+  #   links:
+  #     - backend
+  #   environment:
+  #     PORT: 9000
+  #     VITE_BACKEND_URL_BASE: http://localhost:3000/api/V1
 
 networks:
   app-network:

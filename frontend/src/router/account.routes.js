@@ -1,6 +1,6 @@
 import Layout from "@/views/account/layout.vue";
 import Login from "@/views/account/login.vue";
-// import { Layout, Login, Register } from "@/views/account";
+import Register from "@/views/account/register.vue";
 
 export default {
     path: "/account",
@@ -8,6 +8,6 @@ export default {
     children: [
         { path: "", redirect: "login" },
         { path: "login", component: Login },
-        // { path: "register", component: Register }
+        { path: "register", component: Register }
     ]
 };

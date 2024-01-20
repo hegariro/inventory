@@ -2,9 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from "@/stores/auth.store";
 import { useAlertStore } from "@/stores/alert.store";
 import Home from "@/views/Home.vue";
+import accountRoutes from './account.routes';
+import productsRoutes from './products.routes';
 // import adminRoutes from './admin.routes';
 // import customerRoutes from './customer.routes';
-import accountRoutes from './account.routes';
 
 //TODO falta agregar el componente del Home
 
@@ -14,6 +15,7 @@ const router = createRouter({
     routes: [
         { path: '/', name: 'home', component: Home },
         { ...accountRoutes },
+        { ...productsRoutes },
         // { ...adminRoutes },
         // { ...customerRoutes },
         { path: '/:pathMatch(.*)*', redirect: '/' }

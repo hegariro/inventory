@@ -16,26 +16,27 @@ async function onSubmit(values) {
 </script>
 
 <template>
-    <div class="card bg-dark text-white m-3">
+    <div class="card bg-dark text-white m-12">
         <h4 class="card-header">Login</h4>
         <div class="card-body">
             <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
                 <div class="form-group">
                     <label>Username</label>
-                    <Field name="username" type="text" class="form-control" :class="{ 'is-invalid': errors }" />
+                    <Field name="username" type="text" class="form-control" :class="{ 'is-invalid': errors.username }" />
+                    <div class="invalid-feedback">{{ errors.username }}</div>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <Field name="password" type="password" class="form-control" :class="{ 'is-invalid': errors }" />
+                    <Field name="password" type="password" class="form-control" :class="{ 'is-invalid': errors.password }" />
+                    <div class="invalid-feedback">{{ errors.password }}</div>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" :disabled="isSubmitting">
                         <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
                         Login
                     </button>
-                    <router-link to="register" class="btn btn-link">Register</router-link>
+                    <router-link to="register" class="btn btn-link">Registrarme</router-link>
                 </div>
-                <div class="invalid-feedback">{{ errors }}</div>
             </Form>
         </div>
     </div>
