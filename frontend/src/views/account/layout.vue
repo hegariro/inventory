@@ -1,6 +1,6 @@
 <script setup>
-import { useAuthStore } from "@/stores";
-import { router } from "@/router";
+import { useAuthStore } from "@/stores/auth.store";
+import router from "@/router";
 
 const authStore = useAuthStore();
 if (authStore.user) router.push("/");

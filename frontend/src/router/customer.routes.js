@@ -4,7 +4,7 @@ export default {
     path: "/customer",
     component: Layout,
     children: [
-        { path: "", redirect: "products" },
+        { path: "", redirect: "products/all" },
         { path: "products/all", component: ProductsHistory },
         { path: "purchases", component: UserPurchases },
         { path: "purchases/:id", component: PurchaseDetail },

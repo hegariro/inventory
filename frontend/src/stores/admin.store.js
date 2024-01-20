@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import fetchWrapper from '@/_helpers';
+import { fetchWrapper } from '@/_helpers/fetch-wrapper';
 
 const baseUrlAdmin = `${import.meta.env.VITE_BACKEND_URL_BASE}/admin`;
 

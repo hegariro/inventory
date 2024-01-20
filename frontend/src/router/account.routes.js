@@ -1,4 +1,6 @@
-import { Layout, Login, Register } from "@/views/account";
+import Layout from "@/views/account/layout.vue";
+import Login from "@/views/account/login.vue";
+// import { Layout, Login, Register } from "@/views/account";
 
 export default {
     path: "/account",
