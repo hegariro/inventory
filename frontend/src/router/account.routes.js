@@ -7,7 +7,7 @@ export default {
     component: Layout,
     children: [
         { path: "", redirect: "login" },
-        { path: "login", component: Login },
+        { path: "login", component: Login, name: "login" },
         { path: "register", component: Register }
     ]
 };

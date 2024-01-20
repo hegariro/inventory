@@ -7,8 +7,6 @@ import productsRoutes from './products.routes';
 // import adminRoutes from './admin.routes';
 // import customerRoutes from './customer.routes';
 
-//TODO falta agregar el componente del Home
-
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     linkActiveClass: "active",

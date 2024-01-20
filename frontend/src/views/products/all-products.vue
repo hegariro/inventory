@@ -13,7 +13,7 @@ onMounted(async () => {
 
 <template>
     <div class="wrapper" v-if="products">
-        <div v-for="product in products">
+        <div v-for="product in products" :key="product.id">
             <div class="card bg-dark text-white m-3">
                 <h5 class="card-header title-bar">
                     <span>{{ product.name }}</span>

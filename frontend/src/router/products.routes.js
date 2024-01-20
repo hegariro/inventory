@@ -7,6 +7,6 @@ export default {
     component: Layout,
     children: [
         { path: "", component: AllProducts, name: "all-products" },
-        { path: "detail/:id", component: ProductDetail, name: "product-detail" }
-    ]
+        { path: ":id", component: ProductDetail, name: "product-detail", props: true }
+    ],
 };

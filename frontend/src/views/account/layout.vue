@@ -3,7 +3,7 @@ import { useAuthStore } from "@/stores/auth.store";
 import router from "@/router";
 
 const authStore = useAuthStore();
-if (authStore.user) router.push("/");
+if (!authStore.user) router.push({ name: "login" });
 </script>
 
 <template>
