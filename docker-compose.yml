@@ -50,7 +50,7 @@ services:
       - backend
     environment:
       PORT: 9000
-      VITE_BACKEND_URL_BASE: http://backend:3000/api/V1
+      VITE_BACKEND_URL_BASE: http://localhost:3000/api/V1
 
 networks:
   app-network:

@@ -1,7 +1,6 @@
 <script setup>
 import { Form, Field } from 'vee-validate';
 import * as Yup from 'yup';
-
 import { useAuthStore } from '@/stores/auth.store';
 
 const schema = Yup.object().shape({
@@ -17,7 +16,7 @@ async function onSubmit(values) {
 </script>
 
 <template>
-    <div class="card m-3">
+    <div class="card bg-dark text-white m-3">
         <h4 class="card-header">Login</h4>
         <div class="card-body">
             <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
