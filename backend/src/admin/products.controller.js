@@ -12,9 +12,10 @@ const listAllProducts = async (req, res) => {
 
 const listProductByID = async (req, res) => {
     const { id } = req.params;
-    const { dataValues } = await ProductModel.findByPk(id);
-    if (!dataValues) return res.status(400).json({ message: `Product ${id} was not found` });
+    const data = await ProductModel.findByPk(id);
+    if (!data) return res.status(400).json({ message: `Product ${id} was not found` });
 
+    const { dataValues } = data;
     return res.status(200).json({ product: dataValues });
 };
 

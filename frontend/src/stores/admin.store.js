@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { fetchWrapper } from '@/_helpers/fetch-wrapper';
+import router from '@/router';
 
 const baseUrlAdmin = `${import.meta.env.VITE_BACKEND_URL_BASE}/admin`;
 
@@ -13,6 +14,8 @@ export const useAdminStore = defineStore({
                 this.products.push(p);
             } catch (error) {
                 console.error("Error", { error });
+            } finally {
+                router.push({ name: "home"});
             }
         },
         async updateProduct(product) {
@@ -26,8 +29,11 @@ export const useAdminStore = defineStore({
                         break;
                     }
                 }
+                router.push({ name: "home" });
             } catch (error) {
                 console.error("Error", { error });
+            } finally {
+                router.push({ name: "home"});
             }
         },
         async deleteProduct(productId) {
@@ -38,6 +44,8 @@ export const useAdminStore = defineStore({
                 this.products = products;
             } catch (error) {
                 console.error("Error", { error });
+            } finally {
+                router.push({ name: "home"});
             }
         },
         async listAllPurchases() {

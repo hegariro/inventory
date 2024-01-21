@@ -2,12 +2,12 @@
 import { onMounted, ref } from "vue";
 import { useProductsStore } from "@/stores/products.store.js";
 
-const products = ref();
+const products = ref([]);
 const productsStore = useProductsStore();
 
 onMounted(async () => {
     await productsStore.listAllProducts();
-    products.value = productsStore.products;
+    products.value = Object.fromEntries(productsStore.products);
 });
 </script>
 
@@ -21,14 +21,11 @@ onMounted(async () => {
                 </h5>
                 <div class="card-body">
                     <h5 class="card-title">Detalles del producto</h5>
-                    <p class="card-text"><label>ID:</label>{{ product.id }}</p>
                     <p class="card-text"><label>Nombre del producto:</label>{{  product.name }}</p>
-                    <p class="card-text"><label>N&uacute;mero de lote:</label>{{ product.lot_number }}</p>
                     <p class="card-text"><label>Precio:</label>{{ product.price }}</p>
-                    <p class="card-text"><label>Cantidad de productos disponibles:</label>{{ product.quantity }}</p>
                     <p class="card-text"><label>Fecha de ingreso:</label>{{ product.admission_date }}</p>
-                    <router-link class="btn btn-warning" :to="{ name: 'product-detail', params: { id: product.id }}">
-                        Ver detalle del productos
+                    <router-link class="btn btn-primary" :to="{ name: 'product-detail', params: { id: product.id }}">
+                        Ver detalle del producto
                     </router-link>
                 </div>
             </div>

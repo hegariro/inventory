@@ -4,7 +4,7 @@ import { useAlertStore } from "@/stores/alert.store";
 import Home from "@/views/Home.vue";
 import accountRoutes from './account.routes';
 import productsRoutes from './products.routes';
-// import adminRoutes from './admin.routes';
+import adminRoutes from './admin.routes';
 // import customerRoutes from './customer.routes';
 
 const router = createRouter({
@@ -14,7 +14,7 @@ const router = createRouter({
         { path: '/', name: 'home', component: Home },
         { ...accountRoutes },
         { ...productsRoutes },
-        // { ...adminRoutes },
+        { ...adminRoutes },
         // { ...customerRoutes },
         { path: '/:pathMatch(.*)*', redirect: '/' }
     ]

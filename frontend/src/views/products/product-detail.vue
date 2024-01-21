@@ -4,17 +4,19 @@ import { onMounted, ref } from "vue";
 import { useProductsStore } from "@/stores/products.store.js";
 
 const props = defineProps(['id']);
-const product = ref();
+const product = ref({});
 const productStore = useProductsStore();
 
 onMounted(async () => {
     await productStore.getProductById(props.id);
-    product.value = productStore.products.filter(p => (p.id === props.id)).pop();
+    const aux = productStore.products.get(props.id);
+    const { id, name, lot_number, price, quantity, admission_date } = aux;
+    product.value = { id, name, lot_number, price, quantity, admission_date };
 });
 </script>
 
 <template>
-    <div class="card bg-dark text-white" style="width: 18rem;" v-if="product">
+    <div class="card bg-dark text-white" v-if="product">
         <div class="card-body">
             <h5 class="card-title">Detalle de producto </h5>
             <p class="card-text"><label>ID:</label>{{ product.id }}</p>
@@ -25,6 +27,12 @@ onMounted(async () => {
             <p class="card-text"><label>Fecha de ingreso:</label>{{ product.admission_date }}</p>
             <router-link class="btn btn-primary" :to="{ name: 'all-products' }">
                 Volver a la p&aacute;gina principal
+            </router-link>
+            <router-link class="btn btn-warning mt-2" :to="{ name: 'editProduct', params: { id: props.id }}">
+                Editar producto
+            </router-link>
+            <router-link class="btn btn-danger mt-2" :to="{ name: 'deleteProduct', params: { id: props.id }}">
+                Borrar producto
             </router-link>
         </div>
     </div>
