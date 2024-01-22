@@ -19,5 +19,17 @@ export const useProductsStore = defineStore({
                 console.error("Error", { error });
             }
         }
+    },
+    getters: {
+        getQuantityById: (state) => {
+            return (productId) => (state.products.has(productId) ? 
+                Number(state.products.get(productId).quantity) : 0);
+        },
+        getPriceById: (state) => {
+            return (productId) => (state.products.has(productId) ?
+                Number(state.products.get(productId).price) : 0);
+        },
+        getTotalProducts: (state) => (Number(state.products.size)),
+        getProducts: (state) => Object.values(Object.fromEntries(state.products))
     }
 });

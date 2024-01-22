@@ -18,7 +18,7 @@ const PurchaseOrderModel = orm.define('purchase_order', {
         }
     },
     quantity: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.SMALLINT,
         allowNull: false
     },
     subtotal: {

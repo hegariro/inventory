@@ -24,7 +24,7 @@ const PurchaseModel = orm.define('purchase', {
         allowNull: true
     },
     quantity_products:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.SMALLINT,
         defaultValue: 0
     },
     total_price: {

@@ -5,7 +5,7 @@ import Home from "@/views/Home.vue";
 import accountRoutes from './account.routes';
 import productsRoutes from './products.routes';
 import adminRoutes from './admin.routes';
-// import customerRoutes from './customer.routes';
+import customerRoutes from './customer.routes';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,7 +15,7 @@ const router = createRouter({
         { ...accountRoutes },
         { ...productsRoutes },
         { ...adminRoutes },
-        // { ...customerRoutes },
+        { ...customerRoutes },
         { path: '/:pathMatch(.*)*', redirect: '/' }
     ]
 });

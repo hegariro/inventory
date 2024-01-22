@@ -25,15 +25,17 @@ onMounted(async () => {
             <p class="card-text"><label>Precio:</label>{{ product.price }}</p>
             <p class="card-text"><label>Cantidad de productos disponibles:</label>{{ product.quantity }}</p>
             <p class="card-text"><label>Fecha de ingreso:</label>{{ product.admission_date }}</p>
-            <router-link class="btn btn-primary" :to="{ name: 'all-products' }">
-                Volver a la p&aacute;gina principal
-            </router-link>
-            <router-link class="btn btn-warning mt-2" :to="{ name: 'editProduct', params: { id: props.id }}">
-                Editar producto
-            </router-link>
-            <router-link class="btn btn-danger mt-2" :to="{ name: 'deleteProduct', params: { id: props.id }}">
-                Borrar producto
-            </router-link>
+            <div class="wrapper-buttons">
+                <router-link class="btn btn-primary" :to="{ name: 'all-products' }">
+                    Volver a la p&aacute;gina principal
+                </router-link>
+                <router-link class="btn btn-warning mt-2" :to="{ name: 'editProduct', params: { id: props.id }}">
+                    Editar producto
+                </router-link>
+                <router-link class="btn btn-danger mt-2" :to="{ name: 'deleteProduct', params: { id: props.id }}">
+                    Borrar producto
+                </router-link>
+            </div>
         </div>
     </div>
     <div v-else>
@@ -42,3 +44,11 @@ onMounted(async () => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.wrapper-buttons {
+    display: grid;
+    column-gap: 0.2rem;
+    row-gap: 0.4rem;
+}
+</style>

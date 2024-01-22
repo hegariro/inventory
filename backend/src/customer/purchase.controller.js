@@ -3,33 +3,40 @@ const PurchaseOrderModel = require("../data-presist/purchase-order.model");
 const PurchaseModel = require("../data-presist/purchase.model");
 const uuid = require("uuid");
 
-const createOrders = (orders) => {
-    const orderIds = [];
-    let totalItems, total = 0;
-    orders.map(async ({ productId, quantity, subtotal }) => {
-        totalItems += quantity;
-        total += subtotal;
-        const { dataValues: { id } } = await PurchaseOrderModel.create({
+const createOrders = async (orders) => {
+    let orderIds = new Array();
+    let totalItems = 0
+    let total = 0;
+
+    for (let order of orders) {
+        const { productId, quantity, subtotal } = order;
+        totalItems += Number(quantity);
+        total += Number(subtotal);
+        const result = await PurchaseOrderModel.create({
             id: uuid.v4(),
             product_id: productId,
-            quantity,
-            subtotal
+            quantity: Number(quantity),
+            subtotal: Number(subtotal)
         });
+        const { id } = result.dataValues;
         orderIds.push(id);
-    });
+        console.log({ order, result, id, orderIds });
+    }
+
     return { orderIds, totalItems, total };
 };
 
 const createPurchase = async (req, res) => {
     const { purchaseDate, orders } = req.body;
     const { orderIds, totalItems, total } = createOrders(orders);
+    console.debug(orderIds, totalItems, total);
     const { dataValues: purchase } = await PurchaseModel.create({
         id: uuid.v4(),
         purchase_date: purchaseDate,
         user_id: req.userId,
-        purchase_orders: orderIds,
-        quantity_products: totalItems,
-        total_price: total
+        purchase_orders: JSON.stringify(orderIds),
+        quantity_products: Number(totalItems),
+        total_price: Number(total)
     });
     if (!purchase) return res.status(500).json({ message: `The purchase failed` });
 

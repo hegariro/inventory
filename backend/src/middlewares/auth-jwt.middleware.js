@@ -26,7 +26,7 @@ const isAdmin = (req, res, next) => {
     UserModel.findByPk(req.userId).then(user => {
         const { dataValues: { rol } } = user;
         if (rol === ADMIN_LABEL) next();
-        else return res.status(401).json({ message: "CUSTOMER role is required" });
+        else return res.status(401).json({ message: "ADMIN role is required" });
     });
 };
 
@@ -34,7 +34,7 @@ const isCustomer = (req, res, next) => {
     UserModel.findByPk(req.userId).then(user => {
         const { dataValues: { rol } } = user;
         if (rol === CUSTOMER_LABEL) next();
-        else return res.status(401).json({ message: "ADMIN role is required" });
+        else return res.status(401).json({ message: "CUSTOMER role is required" });
     });
 };
 

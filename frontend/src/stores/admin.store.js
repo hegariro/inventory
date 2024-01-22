@@ -6,7 +6,7 @@ const baseUrlAdmin = `${import.meta.env.VITE_BACKEND_URL_BASE}/admin`;
 
 export const useAdminStore = defineStore({
     id: "admin",
-    state: () => ({ products: [], purchases: [] }),
+    state: () => ({ products: [], purchases: new Map() }),
     actions: {
         async createProduct(product) {
             try {
@@ -51,7 +51,7 @@ export const useAdminStore = defineStore({
         async listAllPurchases() {
             try {
                 const purchases = await fetchWrapper.get(`${baseUrlAdmin}/purchases`);
-                this.purchases = purchases;
+                purchases.map(purchase => this.purchases.set(purchase.id, purchase));
             } catch (error) {
                 console.error("Error", { error });
             }

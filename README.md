@@ -40,3 +40,5 @@ $ docker logs brm-backend -f # para acceder a los logs de la aplicación
 ...
 $ docker logs postgresdb -f # para acceder a los logs de la base de datos
 ```
+
+<!-- https://jasonwatmore.com/post/2022/07/25/vue-3-pinia-user-registration-and-login-example-tutorial#add-edit-vue -->
