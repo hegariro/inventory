@@ -20,12 +20,36 @@ const createOrders = async (orders) => {
         });
         const { id } = result.dataValues;
         orderIds.push(id);
-        console.log({ order, result, id, orderIds });
     }
 
     return { orderIds, totalItems, total };
 };
 
+/**
+ * @api         {post} /api/V1/customer/purchases
+ * @apiName     CreatePurchase
+ * @apiGroup    Customer
+ * 
+ * @apiBody     (Login) {Date}      purchaseDate       Fecha de realización de la compra 
+ * @apiBody     (Login) {Object}    orders             Objeto que contiene las órdenes de compra. 
+ *                                                     Cada orden de compra debe contener los atributos
+ *                                                     productId {UUID} Identificador de producto
+ *                                                     quantity {number} Cantidad de productos
+ *                                                     subtotal {number} Valor de la órden de compra
+ * 
+ * @apiSuccess  {UUID}              id                 identificador único de la compra
+ * @apiSuccess  {Date}              purchase_date      fecha de realización de la compra
+ * @apiSuccess  {UUID}              user_id            identificador único del usuario
+ * @apiSuccess  {JSON}              purchase_orders    objeto con los IDs de orden
+ * @apiSuccess  {number}            quantity_products  cantidad total de productos comprados
+ * @apiSuccess  {number}            total_price        precio total de compra
+ * @apiSuccess  {Date}              created_at         fecha de creación del registro
+ * @apiSuccess  {Date}              updated_at         fecha de la última actualización del registro
+ * 
+ * @apiError    {String}            message            mensaje de error
+ * 
+ * @returns 
+ */
 const createPurchase = async (req, res) => {
     const { purchaseDate, orders } = req.body;
     const { orderIds, totalItems, total } = createOrders(orders);

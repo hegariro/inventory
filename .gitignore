@@ -1,2 +1,9 @@
 */node_modules/
 */data-storage/
+img/
+*.pdf
+*.md
+!README.md
+db_scripts/
+data-storage/
+documentation/
