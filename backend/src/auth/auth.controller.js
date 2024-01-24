@@ -5,6 +5,80 @@ const UserModel = require("../data-presist/user.model");
 const CUSTOMER_ROLE = "customer";
 const EXPIRE_TIME = 86400; // 24 hours
 
+/**
+ * 
+ * @swagger
+ * /api/V1/auth/signup:
+ *   get:
+ *     summary: Endpoint para registrar un usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstname:
+ *                 type: string
+ *                 description: nombres del nuevo usuario
+ *                 example: "Fulano"
+ *               lastname:
+ *                 type: string
+ *                 description: apellidos del nuevo usuario
+ *                 example: "De Tales"
+ *               nickname:
+ *                 type: string
+ *                 description: usuario
+ *                 example: "fulanito"
+ *               password:
+ *                 type: string
+ *                 description: contraseña del usuario
+ *                 example: "k#{5BR37%9*+xrU?vN/P"
+ *     responses:
+ *       '201':
+ *         description: Datos del usuario registrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: resumen de la acción realizada
+ *                   example: "User fulanito was created"
+ *                 data:
+ *                   type: object
+ *                   description: datos del usuario nuevo
+ *                   properties:
+ *                     id:
+ *                       type: uuid
+ *                       description: identificador único del usuario
+ *                       example: "a6267e9b-fbbd-4f38-8188-c60ab5c13714"
+ *                     firstname:
+ *                       type: string
+ *                       description: nombres del usuario
+ *                       example: "Fulano"
+ *                     lastname:
+ *                       type: string
+ *                       description: apellidos del usuario
+ *                       example: "De Tales"
+ *                     nickname:
+ *                       type: string
+ *                       description: usuario
+ *                       example: "fulanito"
+ *       '500':
+ *         description: Respuesta de registro fallido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: mensaje de error
+ *                   example: "User fulanito was not created"
+ * 
+ */
 const signUp = (req, res) => {
     const { firstname, lastname, nickname, password } = req.body;
     UserModel.create({
@@ -30,11 +104,99 @@ const signUp = (req, res) => {
     });
 };
 
+/**
+ * 
+ * @swagger
+ * /api/V1/auth/signup:
+ *   get:
+ *     summary: Endpoint para registrar un usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nickname:
+ *                 type: string
+ *                 description: usuario
+ *                 example: "fulanito"
+ *               password:
+ *                 type: string
+ *                 description: contraseña del usuario
+ *                 example: "k#{5BR37%9*+xrU?vN/P"
+ *     responses:
+ *       '200':
+ *         description: Datos del usuario registrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: resumen de la acción realizada
+ *                   example: "User fulanito was created"
+ *                 data:
+ *                   type: object
+ *                   description: datos del nuevo usuario
+ *                   properties:
+ *                     userId:
+ *                       type: uuid
+ *                       description: identificador único del usuario
+ *                       example: "a6267e9b-fbbd-4f38-8188-c60ab5c13714"
+ *                     username:
+ *                       type: string
+ *                       description: usuario
+ *                       example: "fulanito"
+ *                     accessToken:
+ *                       type: string
+ *                       description: token de acceso
+ *                       example: "eyJpZCI6IjIzYTMwNGUyLTY3YmEtNDNjNi04YTQyLTU5YWNkMWEzYzAwNSIsImlhdCI6MTcwNjA3NzYxNSwiZXhwIjoxNzA2MTY0MDE1fQ.eRrqyFLpwxwVLZHwMLaqY69wZ2ELX69xBjc8q_aSs0Q"
+ *       '401':
+ *         description: Respuesta de usuario inexistente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: mensaje de error
+ *                   example: "User dosn't exists"
+ *       '401':
+ *         description: Respuesta de contraseña errada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: null
+ *                   description: token
+ *                   example: null
+ *                 message:
+ *                   type: string
+ *                   description: mensaje de error
+ *                   example: "Invalid password"
+ *       '500':
+ *         description: Respuesta de error inesperado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: mensaje de error
+ *                   example: "The token has expired"
+ * 
+ */
 const signIn = (req, res) => {
     const { nickname, password } = req.body;
     UserModel.findOne({ where: { nickname } }).then(user => {
         if (!user)
-            return res.status(401).json({ message: `User does not exists` });
+            return res.status(401).json({ message: `User doesn't exists` });
 
         const passIsValid = bcrypt.compareSync(password, user.passwd);
         if (!passIsValid)

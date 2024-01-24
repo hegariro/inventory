@@ -23,10 +23,14 @@ const options = {
     servers: [
       {
         url: `http://localhost:${port}`,
+        description: "Testing server"
       },
     ],
   },
-  apis: ["@/routes/*.js"],
+  apis: [
+    "@/auth/*.js",
+    "@/customer/*.js",
+  ],
 };
 
 const specs = swaggerJsdoc(options);

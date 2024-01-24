@@ -26,29 +26,123 @@ const createOrders = async (orders) => {
 };
 
 /**
- * @api         {post} /api/V1/customer/purchases
- * @apiName     CreatePurchase
- * @apiGroup    Customer
  * 
- * @apiBody     (Login) {Date}      purchaseDate       Fecha de realización de la compra 
- * @apiBody     (Login) {Object}    orders             Objeto que contiene las órdenes de compra. 
- *                                                     Cada orden de compra debe contener los atributos
- *                                                     productId {UUID} Identificador de producto
- *                                                     quantity {number} Cantidad de productos
- *                                                     subtotal {number} Valor de la órden de compra
+ * @swagger
+ * /api/V1/customer/purchases:
+ *   post:
+ *     summary: Endpoint para registrar una compra
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               purchaseDate:
+ *                 type: date
+ *                 description: fecha de realización de la compra
+ *                 example: "2006-01-20"
+ *               orders:
+ *                 type: object
+ *                 properties:
+ *                   productId:
+ *                     type: uuid
+ *                     description: identificador único de producto
+ *                     example: "a5ea0fcc-308c-494e-8db7-27cb954241df"
+ *                   quantity:
+ *                     type: number
+ *                     description: cantidad de productos comprados
+ *                     example: "241"
+ *                   subtotal:
+ *                     type: number
+ *                     description: valor de la orden (precio del producto * cantidad de productos)
+ *                     example: "49400"
+ *     responses:
+ *       '201':
+ *         description: Registro de compra exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 purchase:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: uuid
+ *                       description: identificador único de la compra
+ *                       example: "a5ea0fcc-308c-494e-8db7-27cb954241df"
+ *                     user_id:
+ *                       type: uuid
+ *                       description: identificador único del usuario
+ *                       example: "a5ea0fcc-308c-494e-8db7-27cb954241df"
+ *                     purchase_date:
+ *                       type: date
+ *                       description: fecha de realización de la compra
+ *                       example: "2024-01-22"
+ *                     quantity_products:
+ *                       type: number
+ *                       description: cantidad total de productos comprados
+ *                       example: "200"
+ *                     total_price:
+ *                       type: number
+ *                       description: valor total de la compra
+ *                       example: "2003500"
+ *                     created_at:
+ *                       type: date
+ *                       description: fecha de registro de la compra
+ *                       example: "2024-01-22"
+ *                     updated_at:
+ *                       type: date
+ *                       description: fecha de la última actualización del registro
+ *                       example: "2024-01-22"
+ *                     purchase_orders:
+ *                       type: array
+ *                       items:
+ *                         type: number
+ *                         description: identificador único de la compra
+ *                     orders:
+ *                       type: array
+ *                       description: Contiene un array con las órdenes de compra
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: uuid
+ *                             description: Identificador único de la órden de compra
+ *                             example: "a6267e9b-fbbd-4f38-8188-c60ab5c13714"
+ *                           product_id:
+ *                             type: uuid
+ *                             description: Identificador único del producto
+ *                             example: "a6267e9b-fbbd-4f38-8188-c60ab5c13714"
+ *                           quantity:
+ *                             type: number
+ *                             description: Cantidad total de productos disponibles
+ *                             example: "714"
+ *                           subtotal:
+ *                             type: number
+ *                             description: Valor de la órden de compra
+ *                             example: "2765200.00"
+ *                           created_at:
+ *                             type: date
+ *                             description: Fecha de creación de la órden
+ *                             example: "2024-01-22"
+ *                           updated_at:
+ *                             type: date
+ *                             description: Fecha de la última actualización de la órden
+ *                             example: "2024-01-22"
+ *       '500':
+ *         description: Respuesta de registro fallido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: mensaje de error
+ *                   example: The purchase failed
  * 
- * @apiSuccess  {UUID}              id                 identificador único de la compra
- * @apiSuccess  {Date}              purchase_date      fecha de realización de la compra
- * @apiSuccess  {UUID}              user_id            identificador único del usuario
- * @apiSuccess  {JSON}              purchase_orders    objeto con los IDs de orden
- * @apiSuccess  {number}            quantity_products  cantidad total de productos comprados
- * @apiSuccess  {number}            total_price        precio total de compra
- * @apiSuccess  {Date}              created_at         fecha de creación del registro
- * @apiSuccess  {Date}              updated_at         fecha de la última actualización del registro
- * 
- * @apiError    {String}            message            mensaje de error
- * 
- * @returns 
  */
 const createPurchase = async (req, res) => {
     const { purchaseDate, orders } = req.body;
@@ -67,6 +161,106 @@ const createPurchase = async (req, res) => {
     return res.status(201).json({ purchase });
 };
 
+/**
+ * 
+ * @swagger
+ * /api/V1/customer/purchases/{id}:
+ *   get:
+ *     summary: Endpoint para buscar una compra utilizando el id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: identificador único del usuario
+ *         schema:
+ *           type: uuid
+ *     responses:
+ *       '200':
+ *         description: Datos de la compra solicitada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 purchase:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: uuid
+ *                       description: identificador único de la compra
+ *                       example: "a5ea0fcc-308c-494e-8db7-27cb954241df"
+ *                     user_id:
+ *                       type: uuid
+ *                       description: identificador único del usuario
+ *                       example: "a5ea0fcc-308c-494e-8db7-27cb954241df"
+ *                     purchase_date:
+ *                       type: date
+ *                       description: fecha de realización de la compra
+ *                       example: "2024-01-22"
+ *                     quantity_products:
+ *                       type: number
+ *                       description: cantidad total de productos comprados
+ *                       example: "200"
+ *                     total_price:
+ *                       type: number
+ *                       description: valor total de la compra
+ *                       example: "2003500"
+ *                     created_at:
+ *                       type: date
+ *                       description: fecha de registro de la compra
+ *                       example: "2024-01-22"
+ *                     updated_at:
+ *                       type: date
+ *                       description: fecha de la última actualización del registro
+ *                       example: "2024-01-22"
+ *                     purchase_orders:
+ *                       type: array
+ *                       items:
+ *                         type: number
+ *                         description: identificador único de la compra
+ *                     orders:
+ *                       type: array
+ *                       description: Contiene un array con las órdenes de compra
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: uuid
+ *                             description: Identificador único de la órden de compra
+ *                             example: "a6267e9b-fbbd-4f38-8188-c60ab5c13714"
+ *                           product_id:
+ *                             type: uuid
+ *                             description: Identificador único del producto
+ *                             example: "a6267e9b-fbbd-4f38-8188-c60ab5c13714"
+ *                           quantity:
+ *                             type: number
+ *                             description: Cantidad total de productos disponibles
+ *                             example: "714"
+ *                           subtotal:
+ *                             type: number
+ *                             description: Valor de la órden de compra
+ *                             example: "2765200.00"
+ *                           created_at:
+ *                             type: date
+ *                             description: Fecha de creación de la órden
+ *                             example: "2024-01-22"
+ *                           updated_at:
+ *                             type: date
+ *                             description: Fecha de la última actualización de la órden
+ *                             example: "2024-01-22"
+ *       '400':
+ *         description: Respuesta de búsqueda fallida
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: mensaje de error
+ *                   example: The purchase a6267e9b-fbbd-4f38-8188-c60ab5c13714 was not found
+ * 
+ */
 const listPurchaseById = async (req, res) => {
     const { id } = req.params;
     const { userId } = req;
@@ -97,6 +291,47 @@ const getProducts = (productIds) => {
     return products;
 };
 
+/**
+ * 
+ * @swagger
+ * /api/V1/customer/purchases/products:
+ *   get:
+ *     summary: Endpoint para obtener todos los productos comprados por un usuario
+ *     responses:
+ *       '200':
+ *         description: Datos de los productos comprados por un usuario
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 products:
+ *                   type: array
+ *                   description: Contiene un array con los productos
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: uuid
+ *                         description: identificador único del producto
+ *                         example: "a6267e9b-fbbd-4f38-8188-c60ab5c13714"
+ *                       name:
+ *                         type: string
+ *                         description: nombre del producto
+ *                         example: "Producto uno"
+ *       '204':
+ *         description: Respuesta cuando el usuario no tiene compras asociadas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: mensaje de error
+ *                   example: User a6267e9b-fbbd-4f38-8188-c60ab5c13714 has not purchases
+ * 
+ */
 const productsPurchased = async (req, res) => {
     const { userId } = req;
     const { dataValues: purchases } = await PurchaseModel.findAll({ where: { user_id: userId }});
