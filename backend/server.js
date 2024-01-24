@@ -20,7 +20,7 @@ app.use("/api/V1/auth", authRouter);
 app.use("/api/V1/customer", purchaseRouter);
 app.use("/api/V1/admin", adminRouter);
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(port, () => {
     console.info(`Server is running on port ${port}`);

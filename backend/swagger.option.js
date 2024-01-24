@@ -28,8 +28,8 @@ const options = {
     ],
   },
   apis: [
-    "@/auth/*.js",
-    "@/customer/*.js",
+    "./src/auth/*.js",
+    "./src/customer/*.js",
   ],
 };
 

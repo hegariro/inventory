@@ -9,7 +9,7 @@ const EXPIRE_TIME = 86400; // 24 hours
  * 
  * @swagger
  * /api/V1/auth/signup:
- *   get:
+ *   post:
  *     summary: Endpoint para registrar un usuario
  *     requestBody:
  *       required: true
@@ -107,9 +107,9 @@ const signUp = (req, res) => {
 /**
  * 
  * @swagger
- * /api/V1/auth/signup:
- *   get:
- *     summary: Endpoint para registrar un usuario
+ * /api/V1/auth/signin:
+ *   post:
+ *     summary: Endpoint para loguear a un usuario
  *     requestBody:
  *       required: true
  *       content:
@@ -153,17 +153,6 @@ const signUp = (req, res) => {
  *                       type: string
  *                       description: token de acceso
  *                       example: "eyJpZCI6IjIzYTMwNGUyLTY3YmEtNDNjNi04YTQyLTU5YWNkMWEzYzAwNSIsImlhdCI6MTcwNjA3NzYxNSwiZXhwIjoxNzA2MTY0MDE1fQ.eRrqyFLpwxwVLZHwMLaqY69wZ2ELX69xBjc8q_aSs0Q"
- *       '401':
- *         description: Respuesta de usuario inexistente
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: mensaje de error
- *                   example: "User dosn't exists"
  *       '401':
  *         description: Respuesta de contraseña errada
  *         content:
